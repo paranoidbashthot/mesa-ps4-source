@@ -261,6 +261,8 @@ static uint32_t get_l2_cache_size(enum radeon_family family)
       return 1024 * 1024;
    case CHIP_FIJI:
    case CHIP_POLARIS10:
+   case CHIP_LIVERPOOL:
+   case CHIP_GLADIUS:
       return 2048 * 1024;
       break;
    default:
@@ -535,6 +537,8 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
       identify_chip2(SPOOKY, KAVERI);
       identify_chip2(KALINDI, KABINI);
       identify_chip2(GODAVARI, KABINI);
+      identify_chip2(STARSHA, LIVERPOOL);
+      identify_chip2(STARSHP, GLADIUS);
       break;
    case FAMILY_VI:
       identify_chip(ICELAND);
@@ -670,7 +674,7 @@ bool ac_query_gpu_info(int fd, void *dev_p, struct radeon_info *info,
    info->pa_sc_tile_steering_override = device_info.pa_sc_tile_steering_override;
    info->max_render_backends = amdinfo->rb_pipes;
    /* The value returned by the kernel driver was wrong. */
-   if (info->family == CHIP_KAVERI)
+   if (info->family == CHIP_KAVERI || info->family == CHIP_LIVERPOOL)
       info->max_render_backends = 2;
 
    /* Guess the number of enabled SEs because the kernel doesn't tell us. */
@@ -1199,6 +1203,8 @@ int ac_get_gs_table_depth(enum chip_class chip_class, enum radeon_family family)
    case CHIP_PITCAIRN:
    case CHIP_VERDE:
    case CHIP_BONAIRE:
+   case CHIP_LIVERPOOL:
+   case CHIP_GLADIUS:
    case CHIP_HAWAII:
    case CHIP_TONGA:
    case CHIP_FIJI:
@@ -1266,6 +1272,14 @@ void ac_get_raster_config(struct radeon_info *info, uint32_t *raster_config_p,
    case CHIP_FIJI:
    case CHIP_VEGAM:
       raster_config = 0x3a00161a;
+      raster_config_1 = 0x0000002e;
+      break;
+   case CHIP_LIVERPOOL:
+      raster_config = 0x2a00161a;
+      raster_config_1 = 0x00000000;
+      break;
+   case CHIP_GLADIUS:
+      raster_config = 0x2a00161a;
       raster_config_1 = 0x0000002e;
       break;
    default:

@@ -132,6 +132,8 @@ const char *ac_get_llvm_processor_name(enum radeon_family family)
    case CHIP_HAINAN:
       return "hainan";
    case CHIP_BONAIRE:
+   case CHIP_LIVERPOOL:
+   case CHIP_GLADIUS:
       return "bonaire";
    case CHIP_KABINI:
       return "kabini";

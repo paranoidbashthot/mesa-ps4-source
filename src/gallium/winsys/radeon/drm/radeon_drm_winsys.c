@@ -275,6 +275,8 @@ static bool do_winsys_init(struct radeon_drm_winsys *ws)
       ws->info.chip_class = GFX6;
       break;
    case CHIP_BONAIRE:
+   case CHIP_LIVERPOOL:
+   case CHIP_GLADIUS:
    case CHIP_KAVERI:
    case CHIP_KABINI:
    case CHIP_HAWAII:
@@ -493,6 +495,8 @@ static bool do_winsys_init(struct radeon_drm_winsys *ws)
    case CHIP_VERDE:
    case CHIP_OLAND:
    case CHIP_BONAIRE:
+   case CHIP_LIVERPOOL:
+   case CHIP_GLADIUS:
    case CHIP_KAVERI:
       ws->info.num_tcc_blocks = 4;
       break;
@@ -522,9 +526,11 @@ static bool do_winsys_init(struct radeon_drm_winsys *ws)
       case CHIP_TAHITI:
       case CHIP_PITCAIRN:
       case CHIP_BONAIRE:
+      case CHIP_LIVERPOOL:
          ws->info.max_se = 2;
          break;
       case CHIP_HAWAII:
+      case CHIP_GLADIUS:
          ws->info.max_se = 4;
          break;
       }

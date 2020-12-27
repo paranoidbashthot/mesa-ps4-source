@@ -1477,7 +1477,8 @@ radv_compute_ia_multi_vgt_param_helpers(struct radv_pipeline *pipeline)
 		/* Bug with tessellation and GS on Bonaire and older 2 SE chips. */
 		if ((device->physical_device->rad_info.family == CHIP_TAHITI ||
 		     device->physical_device->rad_info.family == CHIP_PITCAIRN ||
-		     device->physical_device->rad_info.family == CHIP_BONAIRE) &&
+		     device->physical_device->rad_info.family == CHIP_BONAIRE ||
+		     device->physical_device->rad_info.family == CHIP_LIVERPOOL) /* ??*/ &&
 		    radv_pipeline_has_gs(pipeline))
 			ia_multi_vgt_param.partial_vs_wave = true;
 		/* Needed for 028B6C_DISTRIBUTION_MODE != 0 */
